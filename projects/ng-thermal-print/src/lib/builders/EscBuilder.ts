@@ -4,6 +4,10 @@ declare var TextEncoder: any;
 
 const ESC = 0x1b;
 const GS = 0x1D;
+const CASH_DRAWER = {
+    0: new Uint8Array([0x00, 0x88, 0xfa]),
+    1: new Uint8Array([0x01, 0x88, 0xfa])
+};
 
 export class EscBuilder extends PrintBuilder {
     private encoder = new TextEncoder();
@@ -93,6 +97,18 @@ export class EscBuilder extends PrintBuilder {
         this.write(ESC);
         this.write("!");
         this.write((size === 'normal') ? 0 : 0x30);
+
+        return this;
+    }
+
+    openCashDrawer(pin: number = 0): EscBuilder {
+        if (pin !== 0 && pin !== 1) {
+            throw new Error('ESC/POS Cash Drawer pin can only be 0 or 1');
+        }
+
+        this.write(ESC);
+        this.write('p');
+        this.write(CASH_DRAWER[pin]);
 
         return this;
     }

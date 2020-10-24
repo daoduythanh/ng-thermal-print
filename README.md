@@ -96,6 +96,7 @@ app.component.ts
                 .setBold(false)
                 .feed(4)
                 .cut('full')
+                .openCashDrawer()
                 .flush();
         }
     }

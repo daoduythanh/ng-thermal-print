@@ -50,6 +50,7 @@ export class AppComponent {
       .setBold(false)
       .feed(4)
       .cut("full")
+      .openCashDrawer()
       .flush();
   }
 }

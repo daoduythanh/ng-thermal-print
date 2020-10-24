@@ -96,6 +96,24 @@ export class StarPrintBuilder extends PrintBuilder {
         return this;
     }
 
+    openCashDrawer(pin: number = 1) {
+        if (pin !== 1 && pin !== 2) {
+            throw new Error('Star print Cash Drawer pin can only be 1 or 2');
+        }
+
+        this.write(ESC);
+        if (pin === 1) {
+            this.write(0x07); // BEL
+            this.write(0x20);
+            this.write(0x20);
+        } else {
+            this.write(0x1a); // SUB
+            // The energizing time and delay time for the external device 2 are fixed at 200 ms each.
+        }
+
+        return this;
+    }
+
     private write(value: string | Uint8Array | number): any {
         if (typeof value === "number") {
             this.buffer.writeUInt8(value);

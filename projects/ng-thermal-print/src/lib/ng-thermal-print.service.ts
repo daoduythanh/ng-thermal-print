@@ -129,4 +129,16 @@ export class PrintService extends PrintBuilder {
   flush() {
     this.driver.write(this.builder.flush());
   }
+
+  /**
+   * Open cash drawer
+   * @param pin can have different values based on printer language
+   * - ESC/POS: 0 or 1, default to 0
+   * - StarPRNT: 1 or 2, default to 1
+   * - WebPRNT: 1 or 2, default to 1
+   */
+  openCashDrawer(pin?: number): PrintService {
+    this.builder.openCashDrawer(pin);
+    return this;
+  }
 }

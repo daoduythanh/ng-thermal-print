@@ -63,6 +63,15 @@ export class WebPrintBuilder extends PrintBuilder {
         return this;
     }
 
+    openCashDrawer(pin: number = 1) {
+        if (pin !== 1 && pin !== 2) {
+            throw new Error('Star web print Cash Drawer pin can only be 1 or 2');
+        }
+
+        this.request += this.builder.createPeripheralElement({ channel: pin, on: 200, off: 200 });
+        return this;
+    }
+
     public flush(): string {
         return this.request;
     }
